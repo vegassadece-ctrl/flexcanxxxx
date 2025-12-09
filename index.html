@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexcan XXXX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+        }
+
+        .logo {
+            font-size: 72px;
+            font-weight: bold;
+            color: #4285f4;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+        }
+
+        .search-container {
+            width: 580px;
+            max-width: 90%;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 18px;
+            border: 1px solid #dfe1e5;
+            border-radius: 30px;
+            outline: none;
+            box-shadow: 0 1px 6px rgba(32,33,36,0.28);
+        }
+
+        .search-bar:hover {
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            padding: 15px 8px;
+            cursor: pointer;
+            font-size: 24px;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+            z-index: 1000;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 420px;
+            height: 100%;
+            background-color: #f8f9fa;
+            transition: right 0.4s ease;
+            padding: 20px;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            overflow-y: auto;
+            z-index: 999;
+        }
+
+        .sidebar.open {
+            right: 0;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3367d6;
+        }
+
+        iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .note {
+            font-size: 13px;
+            color: #666;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">Flexcan XXXX</div>
+    
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Flexcan XXXX ile arama yap...">
+    </div>
+
+    <button class="sidebar-toggle" onclick="toggleSidebar()">◄</button>
+
+    <div class="sidebar" id="sidebar">
+        <h2>Flexcan Panel</h2>
+        
+        <div class="youtube-section">
+            <h3>Reklamsız YouTube İzle</h3>
+            <input type="text" id="youtube-url" placeholder="8fc0 YouTube linki yapıştır...">
+            <button onclick="loadYouTube()">▶ İzle</button>
+            <div id="youtube-player"></div>
+            <p class="note">Tarayıcına uBlock Origin kurduysan reklamlar otomatik engellenir.</p>
+        </div>
+        
+        <hr>
+        
+        <div class="discord-section">
+            <h3>Discord</h3>
+            <iframe src="https://discord.com/login" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+            const btn = document.querySelector('.sidebar-toggle');
+            btn.innerHTML = sidebar.classList.contains('open') ? '►' : '◄';
+        }
+
+        function loadYouTube() {
+            const url = document.getElementById('youtube-url').value.trim();
+            const videoId = url.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
+            if (videoId) {
+                document.getElementById('youtube-player').innerHTML = 
+                    `<iframe src="https://www.youtube.com/embed/${videoId[1]}?autoplay=1" allowfullscreen></iframe>`;
+            } else {
+                alert('Lütfen geçerli bir YouTube linki gir!');
+            }
+        }
+    </script>
+</body>
+</html>
